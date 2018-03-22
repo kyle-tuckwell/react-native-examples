@@ -1,23 +1,53 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+/**
+ * This view switches between the example views for this project
+ */
 
-export default class App extends React.Component {
+import React from 'react';
+import { Button, View, Text } from 'react-native';
+import { StackNavigator } from 'react-navigation';
+
+import DrawerNavigatorExample from './react-navigation/DrawerNavigatorExample';
+import StackNavigatorExample from './react-navigation/StackNavigatorExample';
+
+class HomeScreen extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>Home Screen</Text>
+        <Button
+          title="StackNavigator Example"
+          onPress={() => this.props.navigation.navigate('StackNavigator')}
+        />
+        <Button
+          title="DrawerNavigator Example"
+          onPress={() => this.props.navigation.navigate('DrawerNavigator')}
+        />
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+class SettingsScreen extends React.Component {
+  render() {
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>SettingsScreen Screen</Text>
+      </View>
+    );
+  }
+}
+
+export default StackNavigator({
+  Home: {
+    screen: HomeScreen,
   },
+  StackNavigator: {
+    screen: StackNavigatorExample,
+  },
+  DrawerNavigator: {
+    screen: DrawerNavigatorExample,
+  },
+},{
+  headerMode: 'none',
+  initialRouteName: 'Home'
 });
